@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SES_ServicesModelStoreContainer" CdmEntityContainer="SES_ServicesEntities">
+    <EntitySetMapping Name="PayoffBankAccounts">
+      <EntityTypeMapping TypeName="SES_ServicesModel.PayoffBankAccount">
+        <MappingFragment StoreEntitySet="PayoffBankAccounts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedBy_Id" ColumnName="CreatedBy_Id" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ApprovedBy_Id" ColumnName="ApprovedBy_Id" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AccountInfo_AccountNumber" ColumnName="AccountInfo_AccountNumber" />
+          <ScalarProperty Name="AccountInfo_RoutingNumber" ColumnName="AccountInfo_RoutingNumber" />
+          <ScalarProperty Name="AccountInfo_BankName" ColumnName="AccountInfo_BankName" />
+          <ScalarProperty Name="AccountInfo_BankIdentifier" ColumnName="AccountInfo_BankIdentifier" />
+          <ScalarProperty Name="AccountInfo_BankAddress_Address1" ColumnName="AccountInfo_BankAddress_Address1" />
+          <ScalarProperty Name="AccountInfo_BankAddress_Address2" ColumnName="AccountInfo_BankAddress_Address2" />
+          <ScalarProperty Name="AccountInfo_BankAddress_City" ColumnName="AccountInfo_BankAddress_City" />
+          <ScalarProperty Name="AccountInfo_BankAddress_State" ColumnName="AccountInfo_BankAddress_State" />
+          <ScalarProperty Name="AccountInfo_BankAddress_Zip" ColumnName="AccountInfo_BankAddress_Zip" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

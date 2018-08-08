@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SES_ServicesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PayoffBankAccount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="CreatedBy_Id" Type="Guid" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ApprovedBy_Id" Type="Guid" />
+    <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_RoutingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankIdentifier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankAddress_Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankAddress_Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankAddress_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankAddress_State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountInfo_BankAddress_Zip" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="SES_ServicesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccount" />
+  </EntityContainer>
+</Schema>
