@@ -7,6 +7,11 @@ namespace SESServices.Controllers
 {
   public class PayoffAccountsController : ControllerBase
   {
+    /// <summary>
+    /// Gets account information for the autocomplete function on the edit disbursement line item dialog
+    /// </summary>
+    /// <param name="accountNumber">The account number the user has entered</param>
+    /// <returns>JSon object containing all the necessary information to fill the edit disbursement line item dialog</returns>
     public PayoffAccountAutocomplete GetPayoffAccountByAccountNumber(string accountNumber)
     {
       try
