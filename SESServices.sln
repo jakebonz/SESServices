@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SESServices", "SESServices\SESServices.csproj", "{34211594-F32A-4C38-90C3-858F33B647E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SESServices.Tests", "SESServices.Tests\SESServices.Tests.csproj", "{EFCF5F58-94AF-4A9B-BEC1-3BEEAD3E8E2F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{34211594-F32A-4C38-90C3-858F33B647E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34211594-F32A-4C38-90C3-858F33B647E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34211594-F32A-4C38-90C3-858F33B647E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFCF5F58-94AF-4A9B-BEC1-3BEEAD3E8E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFCF5F58-94AF-4A9B-BEC1-3BEEAD3E8E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFCF5F58-94AF-4A9B-BEC1-3BEEAD3E8E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFCF5F58-94AF-4A9B-BEC1-3BEEAD3E8E2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

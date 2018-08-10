@@ -15,7 +15,6 @@ namespace SESServices.Controllers
     /// </summary>
     /// <param name="accountNumber">The account number the user has entered</param>
     /// <returns>JSon object containing all the necessary information to fill the edit disbursement line item dialog</returns>
-    [Route("GetPayoffAccountByAccountNumber")]
     [HttpGet]
     public PayoffAccountAutocomplete GetPayoffAccountByAccountNumber(string accountNumber)
     {
@@ -30,7 +29,7 @@ namespace SESServices.Controllers
         }
 
         // if it finds an exact match, return the whole thing
-        var exactMatch = _entities.PayoffBankAccounts.FirstOrDefault(a => a.IsActive && a.AccountInfo_AccountNumber.Equals(accountNumber.Trim(), StringComparison.InvariantCultureIgnoreCase));
+        var exactMatch = _entities.PayoffBankAccounts.FirstOrDefault(a => a.IsActive && a.AccountNumber.Equals(accountNumber.Trim(), StringComparison.InvariantCultureIgnoreCase));
         if (exactMatch != null)
         {
           payoffAccount = new PayoffAccountAutocomplete(exactMatch)
@@ -43,16 +42,16 @@ namespace SESServices.Controllers
         }
 
         // if it doesn't find an exact mach, check the wildcard accounts
-        var wildcardAccounts = _entities.PayoffBankAccounts.Where(a => a.IsActive && a.AccountInfo_AccountNumber.Contains("X"));
+        var wildcardAccounts = _entities.PayoffBankAccounts.Where(a => a.IsActive && a.AccountNumber.Contains("X"));
         foreach (var wildcardAccount in wildcardAccounts)
         {
           // If the passed in account number does not match the length of the wildcard number, move to the next one
-          if (accountNumber.Length != wildcardAccount.AccountInfo_AccountNumber.Length) continue;
+          if (accountNumber.Length != wildcardAccount.AccountNumber.Length) continue;
 
           for (var i = 0; i < accountNumber.Length; i++)
           {
             var accountChar = accountNumber[i];
-            var wildcardChar = wildcardAccount.AccountInfo_AccountNumber[i];
+            var wildcardChar = wildcardAccount.AccountNumber[i];
 
             // If all the leading numbers matched and we hit an 'X', it's a match
             if (wildcardChar == 'X')
@@ -90,8 +89,7 @@ namespace SESServices.Controllers
     }
 
 
-
-    [Route("CreatePayoffAccount")]
+    
     [HttpPost]
     public ResultMessage CreatePayoffAccount(HttpRequestMessage request)
     {

@@ -15,21 +15,25 @@ namespace SESServices.Models
     public partial class PayoffBankAccount
     {
         public System.Guid Id { get; set; }
-        public System.Guid CreatedBy_Id { get; set; }
+        public Nullable<System.Guid> CreatedBy_Id { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.Guid> ApprovedBy_Id { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public bool IsActive { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string AccountInfo_AccountNumber { get; set; }
-        public string AccountInfo_RoutingNumber { get; set; }
-        public string AccountInfo_BankName { get; set; }
-        public string AccountInfo_BankIdentifier { get; set; }
-        public string AccountInfo_BankAddress_Address1 { get; set; }
-        public string AccountInfo_BankAddress_Address2 { get; set; }
-        public string AccountInfo_BankAddress_City { get; set; }
-        public string AccountInfo_BankAddress_State { get; set; }
-        public string AccountInfo_BankAddress_Zip { get; set; }
+        public Nullable<System.Guid> CreatedByEntity_Id { get; set; }
+        public string CreatedByUsername { get; set; }
+        public Nullable<System.Guid> ApprovedByEntity_Id { get; set; }
+        public string ApprovedByUsername { get; set; }
+        public int Status { get; set; }
+        public string AccountNumber { get; set; }
+        public string RoutingNumber { get; set; }
+        public string BankName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
     }
 }
