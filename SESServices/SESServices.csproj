@@ -18,7 +18,7 @@
     <AssemblyName>SESServices</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -213,6 +213,7 @@
     <Compile Include="Controllers\PayoffAccountsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataTransferObjects\PayoffAccountAutocomplete.cs" />
+    <Compile Include="DataTransferObjects\ResultMessage.cs" />
     <Compile Include="Enumerations\ResultEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -386,7 +387,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53470</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53470/</IISUrl>
+          <IISUrl>http://localhost/SESServices</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

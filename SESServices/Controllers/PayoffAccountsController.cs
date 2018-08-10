@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
+using System.Web.Http;
+using System.Xml;
 using SESServices.DataTransferObjects;
 using SESServices.Enumerations;
 
@@ -12,6 +15,8 @@ namespace SESServices.Controllers
     /// </summary>
     /// <param name="accountNumber">The account number the user has entered</param>
     /// <returns>JSon object containing all the necessary information to fill the edit disbursement line item dialog</returns>
+    [Route("GetPayoffAccountByAccountNumber")]
+    [HttpGet]
     public PayoffAccountAutocomplete GetPayoffAccountByAccountNumber(string accountNumber)
     {
       try
@@ -83,5 +88,30 @@ namespace SESServices.Controllers
       }
 
     }
+
+
+
+    [Route("CreatePayoffAccount")]
+    [HttpPost]
+    public ResultMessage CreatePayoffAccount(HttpRequestMessage request)
+    {
+      var doc = new XmlDocument();
+      doc.Load(request.Content.ReadAsStreamAsync().Result);
+
+      if (doc.DocumentElement == null)
+      {
+        return new ResultMessage(ResultEnum.Failure, "Unable to open xml document.");
+      }
+
+      var accountNumber = doc.DocumentElement.SelectSingleNode("accountNumber");
+      var routingNumber = doc.DocumentElement.SelectSingleNode("routingNumber");
+
+      return new ResultMessage(ResultEnum.Success, "Success.");
+
+    }
+
+
+
+
   }
 }
