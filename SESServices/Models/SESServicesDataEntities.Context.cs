@@ -26,5 +26,6 @@ namespace SESServices.Models
         }
     
         public virtual DbSet<PayoffBankAccount> PayoffBankAccounts { get; set; }
+        public virtual DbSet<PayoffBankAccountsHistory> PayoffBankAccountsHistories { get; set; }
     }
 }

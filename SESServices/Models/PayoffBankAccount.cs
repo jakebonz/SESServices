@@ -14,6 +14,12 @@ namespace SESServices.Models
     
     public partial class PayoffBankAccount
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PayoffBankAccount()
+        {
+            this.PayoffBankAccountsHistories = new HashSet<PayoffBankAccountsHistory>();
+        }
+    
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> CreatedBy_Id { get; set; }
         public System.DateTime CreatedDate { get; set; }
@@ -34,5 +40,8 @@ namespace SESServices.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PayoffBankAccountsHistory> PayoffBankAccountsHistories { get; set; }
     }
 }

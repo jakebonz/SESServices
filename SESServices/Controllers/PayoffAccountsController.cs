@@ -90,8 +90,6 @@ namespace SESServices.Controllers
       }
 
     }
-
-
     
     [HttpPost]
     public ResultMessage CreatePayoffAccount(HttpRequestMessage request)
@@ -100,113 +98,40 @@ namespace SESServices.Controllers
       {
         using (var db = new SES_ServicesEntities())
         {
-          // Perform entity permission check here
+          // TODO: Perform entity permission check here
 
-          // Check to see if the entity passing the payoff account to this can pre-approve payoff accounts
+          // TODO: Check to see if the entity passing the payoff account to this can pre-approve payoff accounts
 
           var doc = new XmlDocument();
           doc.Load(request.Content.ReadAsStreamAsync().Result);
 
-          if (doc.DocumentElement == null)
+          var validationResult = ValidatePayoffAccountXml(doc);
+          if (validationResult.Result != ResultEnum.Success)
           {
-            return new ResultMessage(ResultEnum.FailureDocumentReadError, "Unable to open xml document.");
+            return validationResult;
           }
 
+          var payoffAccount = ConvertXmlToPayoffAccount(doc.DocumentElement);
 
-
-          var accountNumber = doc.DocumentElement.SelectSingleNode("accountNumber")?.InnerText;
-          if (string.IsNullOrEmpty(accountNumber))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide an account number.");
-          }
-
-          var routingNumber = doc.DocumentElement.SelectSingleNode("routingNumber")?.InnerText;
-          if (string.IsNullOrEmpty(routingNumber))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a routing number.");
-          }
-
-          var existingPayoffAccount = db.PayoffBankAccounts.FirstOrDefault(p => p.AccountNumber == accountNumber && p.RoutingNumber == routingNumber);
+          var existingPayoffAccount = db.PayoffBankAccounts.FirstOrDefault(p => p.AccountNumber == payoffAccount.AccountNumber && p.RoutingNumber == payoffAccount.RoutingNumber);
           if (existingPayoffAccount != null)
           {
             return new ResultMessage(ResultEnum.FailureDuplicateData, "Unable to create payoff account.  An account with the same account and routing numbers already exists.");
           }
 
-          var bankName = doc.DocumentElement.SelectSingleNode("bankName")?.InnerText;
-          if (string.IsNullOrEmpty(bankName))
+          payoffAccount.Status = PayoffAccountStatusEnum.PendingApproval;  // TODO: Determine beginning status based on entity
+          payoffAccount.CreatedDate = DateTime.Now;
+
+          payoffAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
           {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a bank name.");
-          }
+            EntityId = payoffAccount.CreatedByEntity_Id,
+            UserProfileId = payoffAccount.CreatedBy_Id,
+            TimeStamp = DateTime.Now,
+            Username = payoffAccount.CreatedByUsername,
+            Message = "Payoff account created."
+          });
 
-          var address1 = doc.DocumentElement.SelectSingleNode("address1")?.InnerText;
-          if (string.IsNullOrEmpty(address1))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide an address line one for the bank address.");
-          }
-
-          var city = doc.DocumentElement.SelectSingleNode("city")?.InnerText;
-          if (string.IsNullOrEmpty(city))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a city for the bank address.");
-          }
-
-          var state = doc.DocumentElement.SelectSingleNode("state")?.InnerText;
-          if (string.IsNullOrEmpty(state))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a state for the bank address.");
-          }
-
-          var zip = doc.DocumentElement.SelectSingleNode("zip")?.InnerText;
-          if (string.IsNullOrEmpty(zip))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a zip code for the bank address.");
-          }
-
-          var name = doc.DocumentElement.SelectSingleNode("name")?.InnerText;
-          if (string.IsNullOrEmpty(name))
-          {
-            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a payee name.");
-          }
-
-
-          var newPayoffAccount = new PayoffBankAccount
-          {
-            AccountNumber = accountNumber,
-            RoutingNumber = routingNumber,
-            BankName = bankName,
-            Address1 = address1,
-            Address2 = doc.DocumentElement.SelectSingleNode("address2")?.InnerText,
-            City = city,
-            State = state,
-            Zip = zip,
-            Name = name,
-            Description = doc.DocumentElement.SelectSingleNode("description")?.InnerText,
-            Status = PayoffAccountStatusEnum.PendingApproval, // TODO: Deterine initial status based on who added payoff account
-            CreatedDate = DateTime.Now,
-            CreatedByUsername = doc.DocumentElement.SelectSingleNode("createdByUsername")?.InnerText
-          };
-
-          var createdByIdText = doc.DocumentElement.SelectSingleNode("createdById")?.InnerText;
-          if (string.IsNullOrEmpty(createdByIdText) == false)
-          {
-            Guid createdById;
-            if (Guid.TryParse(createdByIdText, out createdById))
-            {
-              newPayoffAccount.CreatedBy_Id = createdById;
-            }
-          }
-
-          var createdByEntityIdText = doc.DocumentElement.SelectSingleNode("createdByEntityId")?.InnerText;
-          if (string.IsNullOrEmpty(createdByEntityIdText) == false)
-          {
-            Guid createdByEntityId;
-            if (Guid.TryParse(createdByEntityIdText, out createdByEntityId))
-            {
-              newPayoffAccount.CreatedByEntity_Id = createdByEntityId;
-            }
-          }
-
-          db.PayoffBankAccounts.Add(newPayoffAccount);
+          db.PayoffBankAccounts.Add(payoffAccount);
           db.SaveChanges();
 
           return new ResultMessage(ResultEnum.Success, "Success.");
@@ -217,6 +142,328 @@ namespace SESServices.Controllers
         // TODO: log the actual exception
         return new ResultMessage(ResultEnum.Error, "There was a problem creating a new payoff account.");
       }
+    }
+
+
+    [HttpPost]
+    public ResultMessage UpdatePayoffAccount(HttpRequestMessage request)
+    {
+      try
+      {
+        using (var db = new SES_ServicesEntities())
+        {
+          // TODO: Perform entity permission check here
+
+          var doc = new XmlDocument();
+          doc.Load(request.Content.ReadAsStreamAsync().Result);
+
+          var validationResult = ValidatePayoffAccountXml(doc);
+          if (validationResult.Result != ResultEnum.Success)
+          {
+            return validationResult;
+          }
+
+          var updatedAccount = ConvertXmlToPayoffAccount(doc.DocumentElement);
+
+          var duplicateAccount = db.PayoffBankAccounts.FirstOrDefault(p => p.Id != updatedAccount.Id && p.AccountNumber == updatedAccount.AccountNumber && p.RoutingNumber == updatedAccount.RoutingNumber);
+          if (duplicateAccount != null)
+          {
+            return new ResultMessage(ResultEnum.FailureDuplicateData, "Unable to save payoff account information.  The account and routing number pair is already in use by another payoff account.");
+          }
+
+          var existingAccount = db.PayoffBankAccounts.FirstOrDefault(p => p.Id == updatedAccount.Id);
+          if (existingAccount == null)
+          {
+            return new ResultMessage(ResultEnum.FailureExistingDataNotFound, "Unable to locate the existing payoff account with the given Id.");
+          }
+
+          if (existingAccount.Status != PayoffAccountStatusEnum.PendingApproval)
+          {
+            return new ResultMessage(ResultEnum.FailureStatusError, "You may only make changes to existing payoff accounts if the account is still pending approval.");
+          }
+
+          if (existingAccount.AccountNumber != updatedAccount.AccountNumber)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Account number changed from {existingAccount.AccountNumber} to {updatedAccount.AccountNumber}."
+            });
+            existingAccount.AccountNumber = updatedAccount.AccountNumber;
+          }
+
+          if (existingAccount.RoutingNumber != updatedAccount.RoutingNumber)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Routing number changed from {existingAccount.RoutingNumber} to {updatedAccount.RoutingNumber}."
+            });
+            existingAccount.RoutingNumber = updatedAccount.RoutingNumber;
+          }
+
+          if (existingAccount.Name != updatedAccount.Name)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Name changed from {existingAccount.Name} to {updatedAccount.Name}."
+            });
+            existingAccount.Name = updatedAccount.Name;
+          }
+
+          if (existingAccount.Description != updatedAccount.Description)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Description changed from {(string.IsNullOrEmpty(existingAccount.Description) ? "no description" : existingAccount.Description)} to {(string.IsNullOrEmpty(updatedAccount.Description) ? "no description" : updatedAccount.Description)}."
+            });
+            existingAccount.Description = updatedAccount.Description;
+          }
+
+          if (existingAccount.BankName != updatedAccount.BankName)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Bank Name changed from {existingAccount.BankName} to {updatedAccount.BankName}."
+            });
+            existingAccount.BankName = updatedAccount.BankName;
+          }
+
+          if (existingAccount.Address1 != updatedAccount.Address1)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Address 1 changed from {existingAccount.Address1} to {updatedAccount.Address1}."
+            });
+            existingAccount.Address1 = updatedAccount.Address1;
+          }
+
+          if (existingAccount.Address2 != updatedAccount.Address2)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Address 2 changed from {(string.IsNullOrEmpty(existingAccount.Address2) ? "no address 2" : existingAccount.Address2)} to {(string.IsNullOrEmpty(updatedAccount.Address2) ? "no address 2" : updatedAccount.Address2)}."
+            });
+            existingAccount.Address2 = updatedAccount.Address2;
+          }
+
+          if (existingAccount.City != updatedAccount.City)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"City changed from {existingAccount.City} to {updatedAccount.City}."
+            });
+            existingAccount.City = updatedAccount.City;
+          }
+
+          if (existingAccount.State != updatedAccount.State)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"State changed from {existingAccount.State} to {updatedAccount.State}."
+            });
+            existingAccount.State = updatedAccount.State;
+          }
+
+          if (existingAccount.Zip != updatedAccount.Zip)
+          {
+            existingAccount.PayoffBankAccountsHistories.Add(new PayoffBankAccountsHistory
+            {
+              EntityId = updatedAccount.CreatedByEntity_Id,
+              UserProfileId = updatedAccount.CreatedBy_Id,
+              TimeStamp = DateTime.Now,
+              //Username = updatedAccount.CreatedByUsername,
+              Message = $"Zip code changed from {existingAccount.Zip} to {updatedAccount.Zip}."
+            });
+            existingAccount.Zip = updatedAccount.Zip;
+          }
+
+          db.SaveChanges();
+
+          return new ResultMessage(ResultEnum.Success, "Payoff account updated.");
+        }
+      }
+      catch (Exception ex)
+      {
+        return new ResultMessage(ResultEnum.Error, "There was a problem updating the payoff account.");
+      }
+    }
+
+
+
+    private ResultMessage ValidatePayoffAccountXml(XmlDocument doc)
+    {
+      if (doc.DocumentElement == null)
+      {
+        return new ResultMessage(ResultEnum.FailureDocumentReadError, "Unable to open xml document.");
+      }
+
+      var accountNumber = doc.DocumentElement.SelectSingleNode("accountNumber")?.InnerText;
+      if (string.IsNullOrEmpty(accountNumber))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide an account number.");
+      }
+
+      var routingNumber = doc.DocumentElement.SelectSingleNode("routingNumber")?.InnerText;
+      if (string.IsNullOrEmpty(routingNumber))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a routing number.");
+      }
+
+      var bankName = doc.DocumentElement.SelectSingleNode("bankName")?.InnerText;
+      if (string.IsNullOrEmpty(bankName))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a bank name.");
+      }
+
+      var address1 = doc.DocumentElement.SelectSingleNode("address1")?.InnerText;
+      if (string.IsNullOrEmpty(address1))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide an address line one for the bank address.");
+      }
+
+      var city = doc.DocumentElement.SelectSingleNode("city")?.InnerText;
+      if (string.IsNullOrEmpty(city))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a city for the bank address.");
+      }
+
+      //var state = doc.DocumentElement.SelectSingleNode("state")?.InnerText;
+      //if (string.IsNullOrEmpty(state))
+      //{
+      //  return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a state for the bank address.");
+      //}
+
+      var zip = doc.DocumentElement.SelectSingleNode("zip")?.InnerText;
+      if (string.IsNullOrEmpty(zip))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a zip code for the bank address.");
+      }
+
+      var name = doc.DocumentElement.SelectSingleNode("name")?.InnerText;
+      if (string.IsNullOrEmpty(name))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a payee name.");
+      }
+
+      return new ResultMessage(ResultEnum.Success, "Payoff Account add / edit XML Valid");
+    }
+
+
+    private PayoffBankAccount ConvertXmlToPayoffAccount(XmlNode doc)
+    {
+      var name = doc.SelectSingleNode("name")?.InnerText.Trim();
+      var description = doc.SelectSingleNode("description")?.InnerText.Trim();
+      var accountNumber = doc.SelectSingleNode("accountNumber")?.InnerText.Trim();
+      var routingNumber = doc.SelectSingleNode("routingNumber")?.InnerText.Trim();
+      var bankName = doc.SelectSingleNode("bankName")?.InnerText.Trim();
+      var address1 = doc.SelectSingleNode("address1")?.InnerText.Trim();
+      var address2 = doc.SelectSingleNode("address2")?.InnerText.Trim();
+      var city = doc.SelectSingleNode("city")?.InnerText.Trim();
+      var state = doc.SelectSingleNode("state")?.InnerText.Trim();
+      var zip = doc.SelectSingleNode("zip")?.InnerText.Trim();
+
+      var payoffAccount = new PayoffBankAccount
+      {
+        Name = name,
+        Description = description,
+        AccountNumber = accountNumber,
+        RoutingNumber = routingNumber,
+        BankName = bankName,
+        Address1 = address1,
+        Address2 = address2,
+        City = city,
+        State = state,
+        Zip = zip
+      };
+
+      var idText = doc.SelectSingleNode("id")?.InnerText;
+      if (string.IsNullOrEmpty(idText) == false)
+      {
+        Guid id;
+        if (Guid.TryParse(idText, out id))
+        {
+          payoffAccount.Id = id;
+        }
+      }
+
+      var createdByIdText = doc.SelectSingleNode("createdById")?.InnerText.Trim();
+      if (string.IsNullOrEmpty(createdByIdText) == false)
+      {
+        Guid createdById;
+        if (Guid.TryParse(createdByIdText, out createdById))
+        {
+          payoffAccount.CreatedBy_Id = createdById;
+        }
+      }
+
+      var createdByEntityIdText = doc.SelectSingleNode("createdByEntityId")?.InnerText.Trim();
+      if (string.IsNullOrEmpty(createdByEntityIdText) == false)
+      {
+        Guid createdByEntityId;
+        if (Guid.TryParse(createdByEntityIdText, out createdByEntityId))
+        {
+          payoffAccount.CreatedByEntity_Id = createdByEntityId;
+        }
+      }
+
+      var approvedByIdText = doc.SelectSingleNode("approvedById")?.InnerText.Trim();
+      if (string.IsNullOrEmpty(approvedByIdText) == false)
+      {
+        Guid approvedById;
+        if (Guid.TryParse(approvedByIdText, out approvedById))
+        {
+          payoffAccount.ApprovedBy_Id = approvedById;
+        }
+      }
+
+      var approvedByEntityIdText = doc.SelectSingleNode("approvedByEntityId")?.InnerText.Trim();
+      if (string.IsNullOrEmpty(approvedByEntityIdText) == false)
+      {
+        Guid approvedByEntityId;
+        if (Guid.TryParse(approvedByEntityIdText, out approvedByEntityId))
+        {
+          payoffAccount.ApprovedByEntity_Id = approvedByEntityId;
+        }
+      }
+
+
+
+      return payoffAccount;
     }
   }
 }

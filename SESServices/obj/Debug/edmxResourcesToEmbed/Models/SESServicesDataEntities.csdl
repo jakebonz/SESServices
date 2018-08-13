@@ -24,13 +24,47 @@
     <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Zip" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PayoffBankAccountsHistories" Relationship="SES_ServicesModel.FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory" FromRole="PayoffBankAccount" ToRole="PayoffBankAccountsHistory" />
   </EntityType>
   <EntityContainer Name="SES_ServicesEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccount" />
+    <EntitySet Name="PayoffBankAccountsHistories" EntityType="SES_ServicesModel.PayoffBankAccountsHistory" />
+    <AssociationSet Name="FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory" Association="SES_ServicesModel.FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory">
+      <End Role="PayoffBankAccount" EntitySet="PayoffBankAccounts" />
+      <End Role="PayoffBankAccountsHistory" EntitySet="PayoffBankAccountsHistories" />
+    </AssociationSet>
   </EntityContainer>
   <EnumType Name="PayoffAccountStatusEnum">
     <Member Name="Inactive" Value="0" />
     <Member Name="Active" Value="1" />
     <Member Name="PendingApproval" Value="2" />
   </EnumType>
+  <EntityType Name="PayoffBankAccountsHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PayoffBankAccountId" Type="Guid" Nullable="false" />
+    <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserProfileId" Type="Guid" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EntityId" Type="Guid" />
+    <Property Name="EntityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PayoffBankAccount" Relationship="SES_ServicesModel.FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory" FromRole="PayoffBankAccountsHistory" ToRole="PayoffBankAccount" />
+  </EntityType>
+  <Association Name="FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory">
+    <End Type="SES_ServicesModel.PayoffBankAccount" Role="PayoffBankAccount" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="SES_ServicesModel.PayoffBankAccountsHistory" Role="PayoffBankAccountsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayoffBankAccount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PayoffBankAccountsHistory">
+        <PropertyRef Name="PayoffBankAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

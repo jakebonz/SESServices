@@ -25,7 +25,39 @@
     <Property Name="State" Type="nvarchar(max)" />
     <Property Name="Zip" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="PayoffBankAccountsHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PayoffBankAccountId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="UserProfileId" Type="uniqueidentifier" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="EntityId" Type="uniqueidentifier" />
+    <Property Name="EntityName" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory">
+    <End Role="PayoffBankAccounts" Type="Self.PayoffBankAccounts" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PayoffBankAccountsHistory" Type="Self.PayoffBankAccountsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayoffBankAccounts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PayoffBankAccountsHistory">
+        <PropertyRef Name="PayoffBankAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="SES_ServicesModelStoreContainer">
     <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayoffBankAccountsHistory" EntityType="Self.PayoffBankAccountsHistory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory" Association="Self.FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory">
+      <End Role="PayoffBankAccounts" EntitySet="PayoffBankAccounts" />
+      <End Role="PayoffBankAccountsHistory" EntitySet="PayoffBankAccountsHistory" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

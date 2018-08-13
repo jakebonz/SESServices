@@ -22,6 +22,10 @@ namespace SESServices.Enumerations
 
     FailureDuplicateData,
 
+    FailureExistingDataNotFound,
+
+    FailureStatusError,
+
     [Description("Error")]
     Error
   }

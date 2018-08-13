@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="038395f42e14463288a25f59fc5893de" Name="Diagram1">
         <EntityTypeShape EntityType="SES_ServicesModel.PayoffBankAccount" Width="6.875" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SES_ServicesModel.PayoffBankAccountsHistory" Width="1.875" PointX="8.375" PointY="1.875" />
+        <AssociationConnector Association="SES_ServicesModel.FK_PayoffBankAccountsHistory_PayoffBankAccountsHistory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
