@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CreatedBy_Id" Type="uniqueidentifier" />
           <Property Name="CreatedByEntity_Id" Type="uniqueidentifier" />
           <Property Name="CreatedByUsername" Type="nvarchar(max)" />
@@ -41,19 +41,18 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreatedBy_Id" Type="Guid" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ApprovedBy_Id" Type="Guid" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedByEntity_Id" Type="Guid" />
           <Property Name="CreatedByUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedByEntity_Id" Type="Guid" />
           <Property Name="ApprovedByUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="SES_ServicesModel.PayoffAccountStatusEnum" Nullable="false" />
           <Property Name="AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RoutingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -66,6 +65,11 @@
         <EntityContainer Name="SES_ServicesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccount" />
         </EntityContainer>
+        <EnumType Name="PayoffAccountStatusEnum">
+          <Member Name="Inactive" Value="0" />
+          <Member Name="Active" Value="1" />
+          <Member Name="PendingApproval" Value="2" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

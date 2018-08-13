@@ -217,6 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PayoffAccountStatusEnum.cs">
+      <DependentUpon>SESServicesDataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PayoffBankAccount.cs">
       <DependentUpon>SESServicesDataEntities.tt</DependentUpon>
     </Compile>

@@ -4,23 +4,26 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CreatedBy_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedBy_Id" Type="uniqueidentifier" />
+    <Property Name="CreatedByEntity_Id" Type="uniqueidentifier" />
+    <Property Name="CreatedByUsername" Type="nvarchar(max)" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ApprovedBy_Id" Type="uniqueidentifier" />
+    <Property Name="ApprovedByEntity_Id" Type="uniqueidentifier" />
+    <Property Name="ApprovedByUsername" Type="nvarchar(max)" />
     <Property Name="ApprovedDate" Type="datetime" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_AccountNumber" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_RoutingNumber" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankName" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankIdentifier" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankAddress_Address1" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankAddress_Address2" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankAddress_City" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankAddress_State" Type="nvarchar(max)" />
-    <Property Name="AccountInfo_BankAddress_Zip" Type="nvarchar(max)" />
+    <Property Name="AccountNumber" Type="nvarchar(max)" />
+    <Property Name="RoutingNumber" Type="nvarchar(max)" />
+    <Property Name="BankName" Type="nvarchar(max)" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
+    <Property Name="Zip" Type="nvarchar(max)" />
   </EntityType>
   <EntityContainer Name="SES_ServicesModelStoreContainer">
     <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccounts" Schema="dbo" store:Type="Tables" />

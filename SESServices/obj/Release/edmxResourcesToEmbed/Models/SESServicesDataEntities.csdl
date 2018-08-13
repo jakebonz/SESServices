@@ -5,22 +5,25 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" />
-    <Property Name="CreatedBy_Id" Type="Guid" Nullable="false" />
+    <Property Name="CreatedBy_Id" Type="Guid" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ApprovedBy_Id" Type="Guid" />
     <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_RoutingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankIdentifier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankAddress_Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankAddress_Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankAddress_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankAddress_State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AccountInfo_BankAddress_Zip" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedByEntity_Id" Type="Guid" />
+    <Property Name="CreatedByUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedByEntity_Id" Type="Guid" />
+    <Property Name="ApprovedByUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RoutingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="SES_ServicesEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="PayoffBankAccounts" EntityType="Self.PayoffBankAccount" />

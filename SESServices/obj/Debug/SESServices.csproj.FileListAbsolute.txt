@@ -97,6 +97,5 @@ C:\GitHub\SESServices\SESServices\bin\System.Web.WebPages.xml
 C:\GitHub\SESServices\SESServices\bin\System.Web.WebPages.Deployment.xml
 C:\GitHub\SESServices\SESServices\bin\System.Web.WebPages.Razor.xml
 C:\GitHub\SESServices\SESServices\bin\System.Web.Optimization.xml
-C:\GitHub\SESServices\SESServices\obj\Debug\SESServices.csprojResolveAssemblyReference.cache
 C:\GitHub\SESServices\SESServices\obj\Debug\SESServices.dll
 C:\GitHub\SESServices\SESServices\obj\Debug\SESServices.pdb

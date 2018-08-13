@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="038395f42e14463288a25f59fc5893de" Name="Diagram1">
-        <EntityTypeShape EntityType="SES_ServicesModel.PayoffBankAccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SES_ServicesModel.PayoffBankAccount" Width="6.875" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

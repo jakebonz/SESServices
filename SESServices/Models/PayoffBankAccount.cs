@@ -19,14 +19,13 @@ namespace SESServices.Models
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.Guid> ApprovedBy_Id { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public bool IsActive { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<System.Guid> CreatedByEntity_Id { get; set; }
         public string CreatedByUsername { get; set; }
         public Nullable<System.Guid> ApprovedByEntity_Id { get; set; }
         public string ApprovedByUsername { get; set; }
-        public int Status { get; set; }
+        public PayoffAccountStatusEnum Status { get; set; }
         public string AccountNumber { get; set; }
         public string RoutingNumber { get; set; }
         public string BankName { get; set; }

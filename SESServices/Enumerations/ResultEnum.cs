@@ -7,12 +7,22 @@ namespace SESServices.Enumerations
     Unknown = 0,
 
     [Description("Success")]
-    Success = 1,
+    Success,
 
     [Description("Failure")]
-    Failure = 2,
+    Failure,
+
+    FailureMissingData,
+
+    FailureImproperlyFormattedData,
+
+    FailureBadRequest,
+
+    FailureDocumentReadError,
+
+    FailureDuplicateData,
 
     [Description("Error")]
-    Error = 3
+    Error
   }
 }
