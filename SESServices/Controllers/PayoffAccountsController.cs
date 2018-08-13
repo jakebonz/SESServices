@@ -31,7 +31,7 @@ namespace SESServices.Controllers
         }
 
         // if it finds an exact match, return the whole thing
-        var exactMatch = _entities.PayoffBankAccounts.FirstOrDefault(a => a.Status == 0 && a.AccountNumber.Equals(accountNumber.Trim(), StringComparison.InvariantCultureIgnoreCase));
+        var exactMatch = _entities.PayoffBankAccounts.FirstOrDefault(a => a.Status == PayoffAccountStatusEnum.Active && a.AccountNumber.Equals(accountNumber.Trim(), StringComparison.InvariantCultureIgnoreCase));
         if (exactMatch != null)
         {
           payoffAccount = new PayoffAccountAutocomplete(exactMatch)
@@ -44,7 +44,7 @@ namespace SESServices.Controllers
         }
 
         // if it doesn't find an exact mach, check the wildcard accounts
-        var wildcardAccounts = _entities.PayoffBankAccounts.Where(a => a.Status == 0 && a.AccountNumber.Contains("X"));
+        var wildcardAccounts = _entities.PayoffBankAccounts.Where(a => a.Status == PayoffAccountStatusEnum.Active && a.AccountNumber.Contains("X"));
         foreach (var wildcardAccount in wildcardAccounts)
         {
           // If the passed in account number does not match the length of the wildcard number, move to the next one
@@ -88,9 +88,89 @@ namespace SESServices.Controllers
           Message = "There was a problem retreiving the payoff account information."
         };
       }
-
     }
-    
+
+    [HttpGet]
+    public ResultMessage ValidatePayoffAccount(HttpRequestMessage request)
+    {
+      try
+      {
+        using (var db = new SES_ServicesEntities())
+        {
+          // TODO: Perform entity permission check here
+
+          var doc = new XmlDocument();
+          doc.Load(request.Content.ReadAsStreamAsync().Result);
+
+          if (doc.DocumentElement == null)
+          {
+            return new ResultMessage(ResultEnum.FailureDocumentReadError, "Unable to open xml document.");
+          }
+
+          var accountNumber = doc.DocumentElement.SelectSingleNode("accountNumber")?.InnerText;
+          if (string.IsNullOrEmpty(accountNumber))
+          {
+            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to validate payoff account.  You must provide an account number.");
+          }
+
+          var routingNumber = doc.DocumentElement.SelectSingleNode("routingNumber")?.InnerText;
+          if (string.IsNullOrEmpty(routingNumber))
+          {
+            return new ResultMessage(ResultEnum.FailureMissingData, "Unable to validate payoff account.  You must provide a routing number.");
+          }
+
+          // TODO: Check for additional elements like file id, entity, etc.
+
+          var activePayoffAccounts = db.PayoffBankAccounts.Where(p => p.Status == PayoffAccountStatusEnum.Active && p.RoutingNumber == routingNumber);
+
+          if (activePayoffAccounts.Any() == false)
+          {
+            return new ResultMessage(ResultEnum.FailureExistingDataNotFound, "Unable to locate any active payoff accounts with the given routing number.");
+          }
+
+          // If we find an exact account and routing number match, return a success
+          var foundAccount = activePayoffAccounts.FirstOrDefault(p => p.AccountNumber == accountNumber);
+          if (foundAccount != null)
+          {
+            return new ResultMessage(ResultEnum.Success, $"Payoff account with the account number {accountNumber} and routing number {routingNumber} found to be active and valid.");
+          }
+
+          // If we don't find an exact match, check the wildcard accounts
+          foreach (var wildcardAccount in activePayoffAccounts.Where(p => p.AccountNumber.Contains("X")))
+          {
+            // If the wildcard account # and account # to validate do not match length, check the next one
+            if (accountNumber.Length != wildcardAccount.AccountNumber.Length) continue;
+            
+            for (var i = 0; i < accountNumber.Length; i++)
+            {
+              var accountChar = accountNumber[i];
+              var wildcardChar = wildcardAccount.AccountNumber[i];
+
+              // if we hit an X at this point, we have a match
+              if (wildcardChar == 'X')
+              {
+                return new ResultMessage(ResultEnum.Success, $"Payoff account with the account number {accountNumber} and routing number {routingNumber} found to be active and valid.");
+              }
+
+              // If we haven't hit an 'X' yet but the characters still match, move to the next character
+              if (accountChar == wildcardChar) continue;
+
+              // If we haven't hit an 'X' yet but the characters do not match, it isn't a matching number
+              break;
+            }
+          }
+
+          return new ResultMessage(ResultEnum.FailureExistingDataNotFound, "Unable to locate any active payoff accounts with the given account and routing numbers.");
+        }
+      }
+      catch (Exception ex)
+      {
+        // TODO: log the actual exception
+        return new ResultMessage(ResultEnum.Error, "There was a problem validating the payoff account.");
+      }
+    }
+
+
     [HttpPost]
     public ResultMessage CreatePayoffAccount(HttpRequestMessage request)
     {
