@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
@@ -399,6 +398,7 @@ namespace SESServices.Controllers
       }
       catch (Exception ex)
       {
+        // TODO: Log the actual exception
         return new ResultMessage(ResultEnum.Error, "There was a problem updating the payoff account.");
       }
     }
@@ -442,11 +442,11 @@ namespace SESServices.Controllers
         return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a city for the bank address.");
       }
 
-      //var state = doc.DocumentElement.SelectSingleNode("state")?.InnerText;
-      //if (string.IsNullOrEmpty(state))
-      //{
-      //  return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a state for the bank address.");
-      //}
+      var state = doc.DocumentElement.SelectSingleNode("state")?.InnerText;
+      if (string.IsNullOrEmpty(state))
+      {
+        return new ResultMessage(ResultEnum.FailureMissingData, "Unable to create payoff account.  You must provide a state for the bank address.");
+      }
 
       var zip = doc.DocumentElement.SelectSingleNode("zip")?.InnerText;
       if (string.IsNullOrEmpty(zip))

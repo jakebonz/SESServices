@@ -1,0 +1,3633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://api.giact.com/verificationservices/v5" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://api.giact.com/verificationservices/v5" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;img src="../Images/giact_searchresult_logo.jpg" alt="GIACT Systems logo"/&gt;&lt;br/&gt;&lt;h2&gt;&lt;br/&gt;InquiriesWS-5-8 is the public web service for integration with the GIACT Verification Services module's Inquiries resource.&lt;br/&gt;&lt;h2/&gt;&lt;br/&gt;&lt;h3&gt;</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://api.giact.com/verificationservices/v5">
+      <s:element name="GetMobileConsentText">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMobileConsentTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMobileConsentTextResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticationHeader" type="tns:AuthenticationHeader" />
+      <s:complexType name="AuthenticationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApiUsername" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApiPassword" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="RecordNewMobileConsent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewConsent" type="tns:GiactMobileConsent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GiactMobileConsent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientIpAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsentDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RecordNewMobileConsentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecordNewMobileConsentResult" type="tns:MobileConsentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MobileConsentResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MobileConsentRecordId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckForMobileConsent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckForMobileConsentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckForMobileConsentResult" type="tns:ArrayOfGiactMobileConsentRecord" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGiactMobileConsentRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GiactMobileConsentRecord" nillable="true" type="tns:GiactMobileConsentRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GiactMobileConsentRecord">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MobileConsentId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordedConsent" type="tns:GiactMobileConsent" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecordedDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndUserIpAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCurrentlyValid" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RevokeMobileConsent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RevokeMobileConsentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RevokeMobileConsentResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Inquiry" type="tns:GiactInquiry_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GiactInquiry_5_8">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Check" type="tns:CheckInformation_5_8" />
+          <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:CustomerInformation_5_8" />
+          <s:element minOccurs="1" maxOccurs="1" name="GVerifyEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundsConfirmationEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="VoidedCheckImageEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyKbaEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyEsiEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerIdEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="OfacScanEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IpAddressInformationEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomainWhoisEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileVerifyEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileIdentifyEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileLocationEnabled" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CheckInformation_5_8">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RoutingNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountType" nillable="true" type="tns:BankAccountType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="BankAccountType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Checking" />
+          <s:enumeration value="Savings" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CustomerInformation_5_8">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EntityType" type="tns:EntityType" />
+          <s:element minOccurs="0" maxOccurs="1" name="NamePrefix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateOfBirth" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DlNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DlState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrentIpAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileConsentRecordId" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="AltIdType" nillable="true" type="tns:AlternateIdType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AltIdIssuer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AltIdNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EntityType">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownNotApplicable" />
+          <s:enumeration value="Person" />
+          <s:enumeration value="Business" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="AlternateIdType">
+        <s:restriction base="s:string">
+          <s:enumeration value="UsaMilitaryId" />
+          <s:enumeration value="UsaStateId" />
+          <s:enumeration value="PassportUsa" />
+          <s:enumeration value="PassportForeign" />
+          <s:enumeration value="UsaResidentAlienId" />
+          <s:enumeration value="StudentId" />
+          <s:enumeration value="TribalId" />
+          <s:enumeration value="DlCanada" />
+          <s:enumeration value="DlMexico" />
+          <s:enumeration value="OtherIdForeign" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PostInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostInquiryResult" type="tns:GiactResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GiactResult_5_8">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemReferenceId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VerificationResponse" nillable="true" type="tns:VerificationResponse_5_8" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountResponseCode" nillable="true" type="tns:AccountResponseCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountAddedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountLastUpdatedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountClosedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankAccountType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoidedCheckImage" type="s:base64Binary" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundsConfirmationResult" nillable="true" type="tns:FundsConfirmationResult" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerResponseCode" nillable="true" type="tns:CustomerResponseCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchedPersonData" type="tns:ArrayOfPersonDataRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerAlertMessages" type="tns:ArrayOfConsumerAlertMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchedBusinessData" type="tns:ArrayOfBusinessDataRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="OfacListPotentialMatches" type="tns:ArrayOfOfacListData" />
+          <s:element minOccurs="0" maxOccurs="1" name="GIdentifyKbaResult" type="tns:ArrayOfKnowledgeBasedAuthenticationQuestion" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressInformationResult" type="tns:EmailAddressInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="IpAddressInformationResult" type="tns:IpAddressInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="DomainRegistry" type="tns:DomainRegistryRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileVerifyResult" type="tns:GiactMobileVerifyResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileIdentifyResult" type="tns:GiactMobileIdentifyResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileLocationResult" type="tns:LocationResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneIntelligenceResult" type="tns:PhoneIntelligence" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="VerificationResponse_5_8">
+        <s:restriction base="s:string">
+          <s:enumeration value="Error" />
+          <s:enumeration value="PrivateBadChecksList" />
+          <s:enumeration value="Declined" />
+          <s:enumeration value="RejectItem" />
+          <s:enumeration value="AcceptWithRisk" />
+          <s:enumeration value="RiskAlert" />
+          <s:enumeration value="Pass" />
+          <s:enumeration value="PassNdd" />
+          <s:enumeration value="NegativeData" />
+          <s:enumeration value="NoData" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="AccountResponseCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="GS01" />
+          <s:enumeration value="GS02" />
+          <s:enumeration value="GS03" />
+          <s:enumeration value="GS04" />
+          <s:enumeration value="GP01" />
+          <s:enumeration value="RT00" />
+          <s:enumeration value="RT01" />
+          <s:enumeration value="RT02" />
+          <s:enumeration value="RT03" />
+          <s:enumeration value="RT04" />
+          <s:enumeration value="RT05" />
+          <s:enumeration value="_1111" />
+          <s:enumeration value="_2222" />
+          <s:enumeration value="_3333" />
+          <s:enumeration value="_5555" />
+          <s:enumeration value="_7777" />
+          <s:enumeration value="_8888" />
+          <s:enumeration value="_9999" />
+          <s:enumeration value="GN01" />
+          <s:enumeration value="GN05" />
+          <s:enumeration value="ND00" />
+          <s:enumeration value="ND01" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="FundsConfirmationResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="NonParticipatingBank" />
+          <s:enumeration value="InvalidAccountNumber" />
+          <s:enumeration value="AccountClosed" />
+          <s:enumeration value="InsufficientFunds" />
+          <s:enumeration value="SufficientFunds" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CustomerResponseCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="CA01" />
+          <s:enumeration value="CA11" />
+          <s:enumeration value="CA21" />
+          <s:enumeration value="CA22" />
+          <s:enumeration value="CA23" />
+          <s:enumeration value="CA24" />
+          <s:enumeration value="CA25" />
+          <s:enumeration value="CA30" />
+          <s:enumeration value="CI01" />
+          <s:enumeration value="CI02" />
+          <s:enumeration value="CI11" />
+          <s:enumeration value="CI21" />
+          <s:enumeration value="CI22" />
+          <s:enumeration value="CI23" />
+          <s:enumeration value="CI24" />
+          <s:enumeration value="CI25" />
+          <s:enumeration value="CI30" />
+          <s:enumeration value="ND02" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfPersonDataRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonDataRecord" nillable="true" type="tns:PersonDataRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonDataRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateOfBirth" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SsnIssueState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SsnIssueStartYear" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SsnIssueEndYear" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SsnStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressRecords" type="tns:ArrayOfResidentialAddressRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumbers" type="tns:ArrayOfPhoneNumberInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfResidentialAddressRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResidentialAddressRecord" nillable="true" type="tns:ResidentialAddressRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResidentialAddressRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:AddressStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateReported" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParsedAddressLine1" type="tns:ParsedAddressLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Current" />
+          <s:enumeration value="Previous" />
+          <s:enumeration value="SecondPrevious" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ParsedAddressLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StreetNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostDirectional" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPhoneNumberInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PhoneNumberInformation" nillable="true" type="tns:PhoneNumberInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PhoneNumberInformation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Classification" type="tns:NumberClassification" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberType" type="tns:PhoneNumberType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="NumberClassification">
+        <s:restriction base="s:string">
+          <s:enumeration value="Personal" />
+          <s:enumeration value="Business" />
+          <s:enumeration value="ResidentialBusiness" />
+          <s:enumeration value="Government" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PhoneNumberType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Mobile" />
+          <s:enumeration value="LandLine" />
+          <s:enumeration value="VOIP" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfConsumerAlertMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConsumerAlertMessage" nillable="true" type="tns:ConsumerAlertMessage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsumerAlertMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBusinessDataRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BusinessDataRecord" nillable="true" type="tns:BusinessDataRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BusinessDataRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NameRecords" type="tns:ArrayOfBusinessNameRecord" />
+          <s:element minOccurs="1" maxOccurs="1" name="MatchingBusinessContactFound" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DunsNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CorporationType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrationType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IncorporationState" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncorporationDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FilingNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Industries" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domains" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressRecords" type="tns:ArrayOfBusinessAddressRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumbers" type="tns:ArrayOfPhoneNumberInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessContacts" type="tns:ArrayOfBusinessContactRecord" />
+          <s:element minOccurs="1" maxOccurs="1" name="BankruptcySubjectRecordCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BankruptcyCreditorRecordCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiscellaneousDetails" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessReportKey" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBusinessNameRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BusinessNameRecord" nillable="true" type="tns:BusinessNameRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BusinessNameRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBusinessAddressRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BusinessAddressRecord" nillable="true" type="tns:BusinessAddressRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BusinessAddressRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParsedAddressLine1" type="tns:ParsedAddressLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBusinessContactRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BusinessContactRecord" nillable="true" type="tns:BusinessContactRecord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BusinessContactRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOfacListData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OfacListData" nillable="true" type="tns:OfacListData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OfacListData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EntityId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="tns:OfacPotentialMatchSummary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="tns:OfacListName" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramNames" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlsoKnownAs" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Associations" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateOfBirthListings" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlaceOfBirthListings" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nationalities" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="NationalIds" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Citizenships" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Passports" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxIdNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfOfacListAddressEntry" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdatedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OfacPotentialMatchSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PotentialMatchLevel" type="tns:MatchLevel" />
+          <s:element minOccurs="0" maxOccurs="1" name="PotentialMatchDetails" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="PotentialMatchAka" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MatchLevel">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Exact" />
+          <s:enumeration value="High" />
+          <s:enumeration value="Conditional" />
+          <s:enumeration value="NoMatch" />
+          <s:enumeration value="Unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="OfacListName">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ListItemName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOfacListAddressEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OfacListAddressEntry" nillable="true" type="tns:OfacListAddressEntry" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OfacListAddressEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CityStatePost" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfKnowledgeBasedAuthenticationQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KnowledgeBasedAuthenticationQuestion" nillable="true" type="tns:KnowledgeBasedAuthenticationQuestion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KnowledgeBasedAuthenticationQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Question" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PossibleAnswers" type="tns:ArrayOfKnowledgeBasedAuthenticationAnswer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfKnowledgeBasedAuthenticationAnswer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KnowledgeBasedAuthenticationAnswer" nillable="true" type="tns:KnowledgeBasedAuthenticationAnswer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KnowledgeBasedAuthenticationAnswer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Answer" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCorrect" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EmailAddressInformation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EmailAddressFound" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressOwnerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressOwnerCompany" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressOwnerTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressOwnerPhoto" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddressStatus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmailAddressStatusId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmailAddressAdvice" nillable="true" type="tns:Advice" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmailAddressCreatedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstSeen" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastSeen" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomainExists" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomainCreatedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DomainCompany" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DomainCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DomainCategory" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomainRisk" nillable="true" type="tns:DomainRiskLevel" />
+          <s:element minOccurs="0" maxOccurs="1" name="SocialMediaLinks" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceIndustry" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fraud" nillable="true" type="tns:FraudType" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsNotDeliverable" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="Advice">
+        <s:restriction base="s:string">
+          <s:enumeration value="FraudReview" />
+          <s:enumeration value="UnclearRisk" />
+          <s:enumeration value="LowerFraudRisk" />
+          <s:enumeration value="ModerateFraudRisk" />
+          <s:enumeration value="DataEntryReview" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DomainRiskLevel">
+        <s:restriction base="s:string">
+          <s:enumeration value="VeryLow" />
+          <s:enumeration value="Low" />
+          <s:enumeration value="Moderate" />
+          <s:enumeration value="High" />
+          <s:enumeration value="VeryHigh" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="FraudType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CardNotPresentFraud" />
+          <s:enumeration value="Chargeback" />
+          <s:enumeration value="FirstPartyFraud" />
+          <s:enumeration value="FirstPaymentDefault" />
+          <s:enumeration value="IdentityTheft" />
+          <s:enumeration value="SyntheticId" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="IpAddressInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="tns:LocationResult" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserType" type="tns:IpAddressUserType" />
+          <s:element minOccurs="1" maxOccurs="1" name="NetSpeed" type="tns:NetworkSpeed" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ISP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organization" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CorporateProxy" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnonymousProxy" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocationResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StateRegion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipPostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccuracyRadius" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Distance" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZipCodeMatch" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CityMatch" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="StateMatch" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountryMatch" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="IpAddressUserType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Other" />
+          <s:enumeration value="Business" />
+          <s:enumeration value="Cafe" />
+          <s:enumeration value="Cellular" />
+          <s:enumeration value="College" />
+          <s:enumeration value="Government" />
+          <s:enumeration value="Hosting" />
+          <s:enumeration value="Library" />
+          <s:enumeration value="Military" />
+          <s:enumeration value="Residential" />
+          <s:enumeration value="Router" />
+          <s:enumeration value="School" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="NetworkSpeed">
+        <s:restriction base="s:string">
+          <s:enumeration value="Other" />
+          <s:enumeration value="Dialup" />
+          <s:enumeration value="CableDsl" />
+          <s:enumeration value="Corporate" />
+          <s:enumeration value="Cellular" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="DomainRegistryRecord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DomainName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreationDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExpirationDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrarName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrarWhoisServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameServers" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrantName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrantOrganization" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrantAddress" type="tns:BusinessAddressRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrantPhone" type="tns:PhoneNumberInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistrantEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdminName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdminOrganization" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdminAddress" type="tns:BusinessAddressRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdminPhone" type="tns:PhoneNumberInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdminEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechnicalName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechnicalOrganization" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechnicalAddress" type="tns:BusinessAddressRecord" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechnicalPhone" type="tns:PhoneNumberInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="TechnicalEmailAddress" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GiactMobileVerifyResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberMatch" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberType" type="tns:PhoneNumberType" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsParticipatingMobileNetwork" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusInformation" type="tns:GiactMobileStatusInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GiactMobileStatusInformation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdentityAge" nillable="true" type="tns:MobileIdentityAge" />
+          <s:element minOccurs="1" maxOccurs="1" name="CurrentMNO" nillable="true" type="tns:MobileNetworkOperator" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountStatus" nillable="true" type="tns:MobileAccountStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountPaymentType" nillable="true" type="tns:MobileAccountPaymentType" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountOwnerType" nillable="true" type="tns:MobileAccountOwnerType" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountUserType" nillable="true" type="tns:MobileAccountUserType" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusEvents" type="tns:ArrayOfGiactMobileStatusEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MobileIdentityAge">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="LessThanWeek" />
+          <s:enumeration value="From8To30Days" />
+          <s:enumeration value="From31To90Days" />
+          <s:enumeration value="From91To180Days" />
+          <s:enumeration value="From181To365Days" />
+          <s:enumeration value="From1To2Years" />
+          <s:enumeration value="From2To4Years" />
+          <s:enumeration value="From4To6Years" />
+          <s:enumeration value="GreaterThan6Years" />
+          <s:enumeration value="Unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MobileNetworkOperator">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="ASM" />
+          <s:enumeration value="ATT" />
+          <s:enumeration value="BST" />
+          <s:enumeration value="SPR" />
+          <s:enumeration value="TMU" />
+          <s:enumeration value="VZW" />
+          <s:enumeration value="VMU" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MobileAccountStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Deactivated" />
+          <s:enumeration value="Suspended" />
+          <s:enumeration value="Absent" />
+          <s:enumeration value="Active" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MobileAccountPaymentType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Prepaid" />
+          <s:enumeration value="Hybrid" />
+          <s:enumeration value="Postpaid" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MobileAccountOwnerType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Member" />
+          <s:enumeration value="Manager" />
+          <s:enumeration value="Owner" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MobileAccountUserType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Wholesale" />
+          <s:enumeration value="Personal" />
+          <s:enumeration value="Employee" />
+          <s:enumeration value="Business" />
+          <s:enumeration value="Government" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfGiactMobileStatusEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GiactMobileStatusEvent" nillable="true" type="tns:GiactMobileStatusEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GiactMobileStatusEvent">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventType" type="tns:MobileAccountStatusEventType" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MobileAccountStatusEventType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="MSISDNChange" />
+          <s:enumeration value="NetworkStatusChange" />
+          <s:enumeration value="Ported" />
+          <s:enumeration value="DeviceChange" />
+          <s:enumeration value="SIMSwap" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="GiactMobileIdentifyResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NameMatch" nillable="true" type="tns:MatchLevel" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressMatch" nillable="true" type="tns:MatchLevel" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmailMatch" nillable="true" type="tns:MatchLevel" />
+          <s:element minOccurs="1" maxOccurs="1" name="MatchSource" nillable="true" type="tns:MatchDataSource" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MatchDataSource">
+        <s:restriction base="s:string">
+          <s:enumeration value="Null" />
+          <s:enumeration value="MobileNetwork" />
+          <s:enumeration value="AlternateData" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PhoneIntelligence">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LineType" type="tns:PhoneNumberType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Carrier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCommercial" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPrepaid" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetByItemReferenceId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ItemReferenceId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByItemReferenceIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByItemReferenceIdResult" type="tns:GiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GiactSearchResult_5_8">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inquiry" type="tns:GiactInquiry_5_8" />
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:GiactResult_5_8" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebsiteUsername" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTop10Descending">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTop10DescendingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTop10DescendingResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGiactSearchResult_5_8">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GiactSearchResult_5_8" nillable="true" type="tns:GiactSearchResult_5_8" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchByDateTimeRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="End" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByDateTimeRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchByDateTimeRangeResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchAllInquiries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UniqueId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Check" type="tns:CheckInformation_5_8" />
+            <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:CustomerInformation_5_8" />
+            <s:element minOccurs="1" maxOccurs="1" name="Start" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="End" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchAllInquiriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchAllInquiriesResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByWebsiteUsername">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WebsiteUsername" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="End" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByWebsiteUsernameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchByWebsiteUsernameResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="End" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActivityReportResult" type="tns:GiactActivityReport_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GiactActivityReport_5_8">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCallCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GVerifyCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProprietaryScrubs" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealTimeHitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealTimeExtendedHitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NegativeDataHitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoDataCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RtxStatusUpdatesFromPreviousDaysBatchCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountResponseCodeBreakdown" type="tns:ArrayOfResponseCodeBreakdownItem" />
+          <s:element minOccurs="1" maxOccurs="1" name="GVerifyWithCustomerIdCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateWithCustomerIdCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateOwnerDataEligibleCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateOwnerDataFoundCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GAuthenticateWithPlusIdUsedCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerResponseCodeBreakdown" type="tns:ArrayOfResponseCodeBreakdownItem" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundsConfirmationInquiryCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundsConfirmationEligibleCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundsConfirmationDataFoundCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FundsConfirmationResultBreakdown" type="tns:ArrayOfFundsConfirmationResultBreakdownItem" />
+          <s:element minOccurs="1" maxOccurs="1" name="VoidedCheckImageReturnedCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileVerificationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileIdentificationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MobileLocationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyBusinessCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyKbaCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GIdentifyEsiCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerIdResultsCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerIdBusinessResultsCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OfacListScanCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IpAddressInformationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomainWhoisCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecureLinkCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecureLinkConfirmationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecureLinkSecurityCodeCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecureLinkMobileLocationCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OcrCheckCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OcrIdCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BeneficialIdCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfResponseCodeBreakdownItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResponseCodeBreakdownItem" nillable="true" type="tns:ResponseCodeBreakdownItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResponseCodeBreakdownItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResponseCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodeDetails" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodeDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFundsConfirmationResultBreakdownItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FundsConfirmationResultBreakdownItem" nillable="true" type="tns:FundsConfirmationResultBreakdownItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FundsConfirmationResultBreakdownItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetErrorLogItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="End" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorLogItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetErrorLogItemsResult" type="tns:ArrayOfErrorLogItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfErrorLogItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorLogItem" nillable="true" type="tns:ErrorLogItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorLogItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApiUsername" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeStamp" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TestMode" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InquiryText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetErrorLogItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="errorLogItemId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorLogItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetErrorLogItemResult" type="tns:ErrorLogItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFundsConfirmationResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResultsDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFundsConfirmationResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFundsConfirmationResultsResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRtxFileResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResultsDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRtxFileResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRtxFileResultsResult" type="tns:ArrayOfGiactSearchResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPrivateBadChecksItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewPrivateBadCheck" type="tns:PrivateBadCheck" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrivateBadCheck">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BadCheckID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoutingNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckRejectReason" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddedDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdatedDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastActiveChanged" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameOnCheck" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckNumber" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddPrivateBadChecksItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddPrivateBadChecksItemResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrivateBadChecksItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BadCheckId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrivateBadChecksItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrivateBadChecksItemResult" type="tns:PrivateBadCheck" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrivateBadChecksItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Active" nillable="true" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrivateBadChecksItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrivateBadChecksItemsResult" type="tns:ArrayOfPrivateBadCheck" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPrivateBadCheck">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PrivateBadCheck" nillable="true" type="tns:PrivateBadCheck" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchPrivateBadChecks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RoutingNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchPrivateBadChecksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchPrivateBadChecksResult" type="tns:ArrayOfPrivateBadCheck" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPrivateBadCheckStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BadCheckId" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPrivateBadCheckStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetPrivateBadCheckStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePrivateBadCheckRejectReason">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BadCheckId" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckRejectReason" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePrivateBadCheckRejectReasonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePrivateBadCheckRejectReasonResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_Confirmation_SendRequestViaSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmationQuestion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_Confirmation_SendRequestViaSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_Confirmation_SendRequestViaSmsResult" type="tns:SecureLinkRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SecureLinkRequestResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SecureLinkRequestId" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecureLink_Confirmation_SendRequestViaIvr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmationQuestion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_Confirmation_SendRequestViaIvrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_Confirmation_SendRequestViaIvrResult" type="tns:SecureLinkRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_Confirmation_GetResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_Confirmation_GetResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_Confirmation_GetResultResult" type="tns:SecureLinkConfirmationResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SecureLinkConfirmationResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Confirmed" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConfirmationDateTime" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecureLink_SecurityCode_SendViaSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_SendViaSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_SecurityCode_SendViaSmsResult" type="tns:SecureLinkRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_SendViaEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_SendViaEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_SecurityCode_SendViaEmailResult" type="tns:SecureLinkRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_VerifyCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="SecurityCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_VerifyCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_SecurityCode_VerifyCodeResult" type="tns:SecureLinkCodeVerificationResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SecureLinkCodeVerificationResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Verified" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecureLink_SecurityCode_HasBeenVerified">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_SecurityCode_HasBeenVerifiedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_SecurityCode_HasBeenVerifiedResult" type="tns:SecureLinkCodeVerificationResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_MobileLocation_SendRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_MobileLocation_SendRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_MobileLocation_SendRequestResult" type="tns:SecureLinkRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_MobileLocation_GetResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureLink_MobileLocation_GetResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureLink_MobileLocation_GetResultResult" type="tns:SecureLinkLocationResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SecureLinkLocationResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LocationResult" type="tns:GiactMobileLocationResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GiactMobileLocationResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccuracyRadius" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Altitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AltitudeAccuracy" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipPostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StateRegion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountyDistrict" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Distance" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OcrPostImages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ocrRequest" type="tns:OcrRequest_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OcrRequest_5_8">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CheckImage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdCardImage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OcrPostImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OcrPostImagesResult" type="tns:OcrResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OcrResult_5_8">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OcrItemId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckInfo" type="tns:CheckInformation_5_8" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckInfoConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerInfo" type="tns:CustomerInformation_5_8" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomerInfoConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="NameConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="DateOfBirthConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="DlNumberConfidenceScore" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckPayorName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckPayeeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OcrPostImagesV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ocrRequest" type="tns:OcrRequest_5_8" />
+            <s:element minOccurs="1" maxOccurs="1" name="isIdImageBarcode" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OcrPostImagesV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OcrPostImagesV2Result" type="tns:OcrResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OcrGetResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OcrItemId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OcrGetResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OcrGetResultResult" type="tns:OcrResult_5_8" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="ArrayOfGiactMobileConsentRecord" nillable="true" type="tns:ArrayOfGiactMobileConsentRecord" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="GiactSearchResult_5_8" nillable="true" type="tns:GiactSearchResult_5_8" />
+      <s:element name="ArrayOfGiactSearchResult_5_8" nillable="true" type="tns:ArrayOfGiactSearchResult_5_8" />
+      <s:element name="GiactActivityReport_5_8" nillable="true" type="tns:GiactActivityReport_5_8" />
+      <s:element name="ArrayOfErrorLogItem" nillable="true" type="tns:ArrayOfErrorLogItem" />
+      <s:element name="ErrorLogItem" nillable="true" type="tns:ErrorLogItem" />
+      <s:element name="PrivateBadCheck" nillable="true" type="tns:PrivateBadCheck" />
+      <s:element name="ArrayOfPrivateBadCheck" nillable="true" type="tns:ArrayOfPrivateBadCheck" />
+      <s:element name="SecureLinkRequestResult" nillable="true" type="tns:SecureLinkRequestResult" />
+      <s:element name="SecureLinkConfirmationResult" nillable="true" type="tns:SecureLinkConfirmationResult" />
+      <s:element name="SecureLinkCodeVerificationResult" nillable="true" type="tns:SecureLinkCodeVerificationResult" />
+      <s:element name="SecureLinkLocationResult" nillable="true" type="tns:SecureLinkLocationResult" />
+      <s:element name="OcrResult_5_8" nillable="true" type="tns:OcrResult_5_8" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetMobileConsentTextSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMobileConsentText" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileConsentTextSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMobileConsentTextResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileConsentTextAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="RecordNewMobileConsentSoapIn">
+    <wsdl:part name="parameters" element="tns:RecordNewMobileConsent" />
+  </wsdl:message>
+  <wsdl:message name="RecordNewMobileConsentSoapOut">
+    <wsdl:part name="parameters" element="tns:RecordNewMobileConsentResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecordNewMobileConsentAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckForMobileConsent" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckForMobileConsentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentSoapIn">
+    <wsdl:part name="parameters" element="tns:RevokeMobileConsent" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentSoapOut">
+    <wsdl:part name="parameters" element="tns:RevokeMobileConsentResponse" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="PostInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:PostInquiry" />
+  </wsdl:message>
+  <wsdl:message name="PostInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:PostInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostInquiryAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByItemReferenceId" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByItemReferenceIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetTop10DescendingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTop10Descending" />
+  </wsdl:message>
+  <wsdl:message name="GetTop10DescendingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTop10DescendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTop10DescendingAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchByDateTimeRange" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchByDateTimeRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchAllInquiriesSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchAllInquiries" />
+  </wsdl:message>
+  <wsdl:message name="SearchAllInquiriesSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchAllInquiriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchAllInquiriesAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchByWebsiteUsername" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchByWebsiteUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActivityReport" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActivityReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetErrorLogItems" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetErrorLogItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetErrorLogItem" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetErrorLogItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFundsConfirmationResults" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFundsConfirmationResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRtxFileResults" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRtxFileResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="AddPrivateBadChecksItemSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPrivateBadChecksItem" />
+  </wsdl:message>
+  <wsdl:message name="AddPrivateBadChecksItemSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPrivateBadChecksItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPrivateBadChecksItemAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrivateBadChecksItem" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrivateBadChecksItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrivateBadChecksItems" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrivateBadChecksItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchPrivateBadChecks" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchPrivateBadChecksResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPrivateBadCheckStatus" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPrivateBadCheckStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePrivateBadCheckRejectReason" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePrivateBadCheckRejectReasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_SendRequestViaSms" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_SendRequestViaSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_SendRequestViaIvr" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_SendRequestViaIvrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_GetResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_Confirmation_GetResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_SendViaSms" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_SendViaSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_SendViaEmail" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_SendViaEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_VerifyCode" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_VerifyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_HasBeenVerified" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_SecurityCode_HasBeenVerifiedResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_MobileLocation_SendRequest" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_MobileLocation_SendRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureLink_MobileLocation_GetResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureLink_MobileLocation_GetResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:OcrPostImages" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:OcrPostImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesV2SoapIn">
+    <wsdl:part name="parameters" element="tns:OcrPostImagesV2" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesV2SoapOut">
+    <wsdl:part name="parameters" element="tns:OcrPostImagesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="OcrPostImagesV2AuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultSoapIn">
+    <wsdl:part name="parameters" element="tns:OcrGetResult" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultSoapOut">
+    <wsdl:part name="parameters" element="tns:OcrGetResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileConsentTextHttpGetIn" />
+  <wsdl:message name="GetMobileConsentTextHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentHttpGetIn">
+    <wsdl:part name="MobileNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactMobileConsentRecord" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentHttpGetIn">
+    <wsdl:part name="MobileNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdHttpGetIn">
+    <wsdl:part name="ItemReferenceId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:GiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetTop10DescendingHttpGetIn" />
+  <wsdl:message name="GetTop10DescendingHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeHttpGetIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameHttpGetIn">
+    <wsdl:part name="WebsiteUsername" type="s:string" />
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportHttpGetIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportHttpGetOut">
+    <wsdl:part name="Body" element="tns:GiactActivityReport_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsHttpGetIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfErrorLogItem" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemHttpGetIn">
+    <wsdl:part name="errorLogItemId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemHttpGetOut">
+    <wsdl:part name="Body" element="tns:ErrorLogItem" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsHttpGetIn">
+    <wsdl:part name="ResultsDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsHttpGetIn">
+    <wsdl:part name="ResultsDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemHttpGetIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemHttpGetOut">
+    <wsdl:part name="Body" element="tns:PrivateBadCheck" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksHttpGetIn">
+    <wsdl:part name="RoutingNumber" type="s:string" />
+    <wsdl:part name="AccountNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPrivateBadCheck" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusHttpGetIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+    <wsdl:part name="Active" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonHttpGetIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+    <wsdl:part name="CheckRejectReason" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsHttpGetIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="ConfirmationQuestion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrHttpGetIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="ConfirmationQuestion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultHttpGetIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkConfirmationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsHttpGetIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailHttpGetIn">
+    <wsdl:part name="EmailAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeHttpGetIn">
+    <wsdl:part name="RequestId" type="s:string" />
+    <wsdl:part name="SecurityCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkCodeVerificationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedHttpGetIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkCodeVerificationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestHttpGetIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultHttpGetIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultHttpGetOut">
+    <wsdl:part name="Body" element="tns:SecureLinkLocationResult" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultHttpGetIn">
+    <wsdl:part name="OcrItemId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultHttpGetOut">
+    <wsdl:part name="Body" element="tns:OcrResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileConsentTextHttpPostIn" />
+  <wsdl:message name="GetMobileConsentTextHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentHttpPostIn">
+    <wsdl:part name="MobileNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckForMobileConsentHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactMobileConsentRecord" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentHttpPostIn">
+    <wsdl:part name="MobileNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RevokeMobileConsentHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdHttpPostIn">
+    <wsdl:part name="ItemReferenceId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetByItemReferenceIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:GiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetTop10DescendingHttpPostIn" />
+  <wsdl:message name="GetTop10DescendingHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeHttpPostIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchByDateTimeRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameHttpPostIn">
+    <wsdl:part name="WebsiteUsername" type="s:string" />
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchByWebsiteUsernameHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportHttpPostIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityReportHttpPostOut">
+    <wsdl:part name="Body" element="tns:GiactActivityReport_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsHttpPostIn">
+    <wsdl:part name="Start" type="s:string" />
+    <wsdl:part name="End" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfErrorLogItem" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemHttpPostIn">
+    <wsdl:part name="errorLogItemId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorLogItemHttpPostOut">
+    <wsdl:part name="Body" element="tns:ErrorLogItem" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsHttpPostIn">
+    <wsdl:part name="ResultsDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFundsConfirmationResultsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsHttpPostIn">
+    <wsdl:part name="ResultsDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRtxFileResultsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGiactSearchResult_5_8" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemHttpPostIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivateBadChecksItemHttpPostOut">
+    <wsdl:part name="Body" element="tns:PrivateBadCheck" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksHttpPostIn">
+    <wsdl:part name="RoutingNumber" type="s:string" />
+    <wsdl:part name="AccountNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchPrivateBadChecksHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPrivateBadCheck" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusHttpPostIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+    <wsdl:part name="Active" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetPrivateBadCheckStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonHttpPostIn">
+    <wsdl:part name="BadCheckId" type="s:string" />
+    <wsdl:part name="CheckRejectReason" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePrivateBadCheckRejectReasonHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsHttpPostIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="ConfirmationQuestion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaSmsHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrHttpPostIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="ConfirmationQuestion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_SendRequestViaIvrHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultHttpPostIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_Confirmation_GetResultHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkConfirmationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsHttpPostIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaSmsHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailHttpPostIn">
+    <wsdl:part name="EmailAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_SendViaEmailHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeHttpPostIn">
+    <wsdl:part name="RequestId" type="s:string" />
+    <wsdl:part name="SecurityCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_VerifyCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkCodeVerificationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedHttpPostIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_SecurityCode_HasBeenVerifiedHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkCodeVerificationResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestHttpPostIn">
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_SendRequestHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkRequestResult" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultHttpPostIn">
+    <wsdl:part name="RequestId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureLink_MobileLocation_GetResultHttpPostOut">
+    <wsdl:part name="Body" element="tns:SecureLinkLocationResult" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultHttpPostIn">
+    <wsdl:part name="OcrItemId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OcrGetResultHttpPostOut">
+    <wsdl:part name="Body" element="tns:OcrResult_5_8" />
+  </wsdl:message>
+  <wsdl:portType name="InquiriesWS-5-8Soap">
+    <wsdl:operation name="GetMobileConsentText">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the consent text that the mobile number owner must agree to before accessing the owner's data.</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileConsentTextSoapIn" />
+      <wsdl:output message="tns:GetMobileConsentTextSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordNewMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a new consent record.</wsdl:documentation>
+      <wsdl:input message="tns:RecordNewMobileConsentSoapIn" />
+      <wsdl:output message="tns:RecordNewMobileConsentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check for existing consent records.</wsdl:documentation>
+      <wsdl:input message="tns:CheckForMobileConsentSoapIn" />
+      <wsdl:output message="tns:CheckForMobileConsentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Revoke consent for a phone number.</wsdl:documentation>
+      <wsdl:input message="tns:RevokeMobileConsentSoapIn" />
+      <wsdl:output message="tns:RevokeMobileConsentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostInquiry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Post an Inquiry to the service.</wsdl:documentation>
+      <wsdl:input message="tns:PostInquirySoapIn" />
+      <wsdl:output message="tns:PostInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a single inquiry and result pair by it's ItemReferenceId.</wsdl:documentation>
+      <wsdl:input message="tns:GetByItemReferenceIdSoapIn" />
+      <wsdl:output message="tns:GetByItemReferenceIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the top 10 most recent inquiry and result pairs.</wsdl:documentation>
+      <wsdl:input message="tns:GetTop10DescendingSoapIn" />
+      <wsdl:output message="tns:GetTop10DescendingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByDateTimeRangeSoapIn" />
+      <wsdl:output message="tns:SearchByDateTimeRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllInquiries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries.</wsdl:documentation>
+      <wsdl:input message="tns:SearchAllInquiriesSoapIn" />
+      <wsdl:output message="tns:SearchAllInquiriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by Giact Website Username and DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByWebsiteUsernameSoapIn" />
+      <wsdl:output message="tns:SearchByWebsiteUsernameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an activity report for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityReportSoapIn" />
+      <wsdl:output message="tns:GetActivityReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemsSoapIn" />
+      <wsdl:output message="tns:GetErrorLogItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemSoapIn" />
+      <wsdl:output message="tns:GetErrorLogItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Funds Confirmation Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetFundsConfirmationResultsSoapIn" />
+      <wsdl:output message="tns:GetFundsConfirmationResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Real-Time Extended File Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetRtxFileResultsSoapIn" />
+      <wsdl:output message="tns:GetRtxFileResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPrivateBadChecksItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add a new item to your list.</wsdl:documentation>
+      <wsdl:input message="tns:AddPrivateBadChecksItemSoapIn" />
+      <wsdl:output message="tns:AddPrivateBadChecksItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list item by its ID.</wsdl:documentation>
+      <wsdl:input message="tns:GetPrivateBadChecksItemSoapIn" />
+      <wsdl:output message="tns:GetPrivateBadChecksItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get your list items.</wsdl:documentation>
+      <wsdl:input message="tns:GetPrivateBadChecksItemsSoapIn" />
+      <wsdl:output message="tns:GetPrivateBadChecksItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search your list items by routing and account numbers.</wsdl:documentation>
+      <wsdl:input message="tns:SearchPrivateBadChecksSoapIn" />
+      <wsdl:output message="tns:SearchPrivateBadChecksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set an item to active/inactive status.</wsdl:documentation>
+      <wsdl:input message="tns:SetPrivateBadCheckStatusSoapIn" />
+      <wsdl:output message="tns:SetPrivateBadCheckStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update the CheckRejectReason for an item.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePrivateBadCheckRejectReasonSoapIn" />
+      <wsdl:output message="tns:UpdatePrivateBadCheckRejectReasonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaSmsSoapIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via IVR.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaIvrSoapIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaIvrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Confirmation result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_GetResultSoapIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_GetResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaSmsSoapIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to an email address.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaEmailSoapIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_VerifyCodeSoapIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_VerifyCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_HasBeenVerifiedSoapIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_HasBeenVerifiedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Mobile Location request to a mobile phone number.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_SendRequestSoapIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_SendRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Mobile Location result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_GetResultSoapIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_GetResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Post image(s) for gScan OCR.</wsdl:documentation>
+      <wsdl:input message="tns:OcrPostImagesSoapIn" />
+      <wsdl:output message="tns:OcrPostImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImagesV2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Post image(s) for gScan OCR and Barcode reading.</wsdl:documentation>
+      <wsdl:input message="tns:OcrPostImagesV2SoapIn" />
+      <wsdl:output message="tns:OcrPostImagesV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get previous gScan OCR results.</wsdl:documentation>
+      <wsdl:input message="tns:OcrGetResultSoapIn" />
+      <wsdl:output message="tns:OcrGetResultSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="InquiriesWS-5-8HttpGet">
+    <wsdl:operation name="GetMobileConsentText">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the consent text that the mobile number owner must agree to before accessing the owner's data.</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileConsentTextHttpGetIn" />
+      <wsdl:output message="tns:GetMobileConsentTextHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check for existing consent records.</wsdl:documentation>
+      <wsdl:input message="tns:CheckForMobileConsentHttpGetIn" />
+      <wsdl:output message="tns:CheckForMobileConsentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Revoke consent for a phone number.</wsdl:documentation>
+      <wsdl:input message="tns:RevokeMobileConsentHttpGetIn" />
+      <wsdl:output message="tns:RevokeMobileConsentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a single inquiry and result pair by it's ItemReferenceId.</wsdl:documentation>
+      <wsdl:input message="tns:GetByItemReferenceIdHttpGetIn" />
+      <wsdl:output message="tns:GetByItemReferenceIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the top 10 most recent inquiry and result pairs.</wsdl:documentation>
+      <wsdl:input message="tns:GetTop10DescendingHttpGetIn" />
+      <wsdl:output message="tns:GetTop10DescendingHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByDateTimeRangeHttpGetIn" />
+      <wsdl:output message="tns:SearchByDateTimeRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by Giact Website Username and DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByWebsiteUsernameHttpGetIn" />
+      <wsdl:output message="tns:SearchByWebsiteUsernameHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an activity report for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityReportHttpGetIn" />
+      <wsdl:output message="tns:GetActivityReportHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemsHttpGetIn" />
+      <wsdl:output message="tns:GetErrorLogItemsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemHttpGetIn" />
+      <wsdl:output message="tns:GetErrorLogItemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Funds Confirmation Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetFundsConfirmationResultsHttpGetIn" />
+      <wsdl:output message="tns:GetFundsConfirmationResultsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Real-Time Extended File Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetRtxFileResultsHttpGetIn" />
+      <wsdl:output message="tns:GetRtxFileResultsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list item by its ID.</wsdl:documentation>
+      <wsdl:input message="tns:GetPrivateBadChecksItemHttpGetIn" />
+      <wsdl:output message="tns:GetPrivateBadChecksItemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search your list items by routing and account numbers.</wsdl:documentation>
+      <wsdl:input message="tns:SearchPrivateBadChecksHttpGetIn" />
+      <wsdl:output message="tns:SearchPrivateBadChecksHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set an item to active/inactive status.</wsdl:documentation>
+      <wsdl:input message="tns:SetPrivateBadCheckStatusHttpGetIn" />
+      <wsdl:output message="tns:SetPrivateBadCheckStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update the CheckRejectReason for an item.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePrivateBadCheckRejectReasonHttpGetIn" />
+      <wsdl:output message="tns:UpdatePrivateBadCheckRejectReasonHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaSmsHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaSmsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via IVR.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaIvrHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaIvrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Confirmation result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_GetResultHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_GetResultHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaSmsHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaSmsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to an email address.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaEmailHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaEmailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_VerifyCodeHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_VerifyCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_HasBeenVerifiedHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_HasBeenVerifiedHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Mobile Location request to a mobile phone number.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_SendRequestHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_SendRequestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Mobile Location result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_GetResultHttpGetIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_GetResultHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get previous gScan OCR results.</wsdl:documentation>
+      <wsdl:input message="tns:OcrGetResultHttpGetIn" />
+      <wsdl:output message="tns:OcrGetResultHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="InquiriesWS-5-8HttpPost">
+    <wsdl:operation name="GetMobileConsentText">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the consent text that the mobile number owner must agree to before accessing the owner's data.</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileConsentTextHttpPostIn" />
+      <wsdl:output message="tns:GetMobileConsentTextHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check for existing consent records.</wsdl:documentation>
+      <wsdl:input message="tns:CheckForMobileConsentHttpPostIn" />
+      <wsdl:output message="tns:CheckForMobileConsentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Revoke consent for a phone number.</wsdl:documentation>
+      <wsdl:input message="tns:RevokeMobileConsentHttpPostIn" />
+      <wsdl:output message="tns:RevokeMobileConsentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a single inquiry and result pair by it's ItemReferenceId.</wsdl:documentation>
+      <wsdl:input message="tns:GetByItemReferenceIdHttpPostIn" />
+      <wsdl:output message="tns:GetByItemReferenceIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the top 10 most recent inquiry and result pairs.</wsdl:documentation>
+      <wsdl:input message="tns:GetTop10DescendingHttpPostIn" />
+      <wsdl:output message="tns:GetTop10DescendingHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByDateTimeRangeHttpPostIn" />
+      <wsdl:output message="tns:SearchByDateTimeRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search all inquiries by Giact Website Username and DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:SearchByWebsiteUsernameHttpPostIn" />
+      <wsdl:output message="tns:SearchByWebsiteUsernameHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an activity report for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityReportHttpPostIn" />
+      <wsdl:output message="tns:GetActivityReportHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemsHttpPostIn" />
+      <wsdl:output message="tns:GetErrorLogItemsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get error logging items for a DateTime range.</wsdl:documentation>
+      <wsdl:input message="tns:GetErrorLogItemHttpPostIn" />
+      <wsdl:output message="tns:GetErrorLogItemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Funds Confirmation Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetFundsConfirmationResultsHttpPostIn" />
+      <wsdl:output message="tns:GetFundsConfirmationResultsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Real-Time Extended File Results by the results date.</wsdl:documentation>
+      <wsdl:input message="tns:GetRtxFileResultsHttpPostIn" />
+      <wsdl:output message="tns:GetRtxFileResultsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a list item by its ID.</wsdl:documentation>
+      <wsdl:input message="tns:GetPrivateBadChecksItemHttpPostIn" />
+      <wsdl:output message="tns:GetPrivateBadChecksItemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search your list items by routing and account numbers.</wsdl:documentation>
+      <wsdl:input message="tns:SearchPrivateBadChecksHttpPostIn" />
+      <wsdl:output message="tns:SearchPrivateBadChecksHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set an item to active/inactive status.</wsdl:documentation>
+      <wsdl:input message="tns:SetPrivateBadCheckStatusHttpPostIn" />
+      <wsdl:output message="tns:SetPrivateBadCheckStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update the CheckRejectReason for an item.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePrivateBadCheckRejectReasonHttpPostIn" />
+      <wsdl:output message="tns:UpdatePrivateBadCheckRejectReasonHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaSmsHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaSmsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Confirmation request to a phone number via IVR.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_SendRequestViaIvrHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_SendRequestViaIvrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Confirmation result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_Confirmation_GetResultHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_Confirmation_GetResultHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to a phone number via SMS.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaSmsHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaSmsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Security Code to an email address.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_SendViaEmailHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_SendViaEmailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_VerifyCodeHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_VerifyCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify a SecureLink Security Code.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_SecurityCode_HasBeenVerifiedHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_SecurityCode_HasBeenVerifiedHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send a SecureLink Mobile Location request to a mobile phone number.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_SendRequestHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_SendRequestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a SecureLink Mobile Location result.</wsdl:documentation>
+      <wsdl:input message="tns:SecureLink_MobileLocation_GetResultHttpPostIn" />
+      <wsdl:output message="tns:SecureLink_MobileLocation_GetResultHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get previous gScan OCR results.</wsdl:documentation>
+      <wsdl:input message="tns:OcrGetResultHttpPostIn" />
+      <wsdl:output message="tns:OcrGetResultHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InquiriesWS-5-8Soap" type="tns:InquiriesWS-5-8Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMobileConsentText">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetMobileConsentText" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMobileConsentTextAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordNewMobileConsent">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/RecordNewMobileConsent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RecordNewMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/CheckForMobileConsent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CheckForMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/RevokeMobileConsent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RevokeMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostInquiry">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/PostInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:PostInquiryAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetByItemReferenceId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetByItemReferenceIdAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetTop10Descending" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTop10DescendingAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SearchByDateTimeRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchByDateTimeRangeAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllInquiries">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SearchAllInquiries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchAllInquiriesAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SearchByWebsiteUsername" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchByWebsiteUsernameAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetActivityReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetActivityReportAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetErrorLogItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetErrorLogItemsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetErrorLogItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetErrorLogItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetFundsConfirmationResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFundsConfirmationResultsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetRtxFileResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRtxFileResultsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPrivateBadChecksItem">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/AddPrivateBadChecksItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddPrivateBadChecksItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetPrivateBadChecksItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPrivateBadChecksItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItems">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/GetPrivateBadChecksItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPrivateBadChecksItemsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SearchPrivateBadChecks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchPrivateBadChecksAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SetPrivateBadCheckStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetPrivateBadCheckStatusAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/UpdatePrivateBadCheckRejectReason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdatePrivateBadCheckRejectReasonAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_SendRequestViaSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_Confirmation_SendRequestViaSmsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_SendRequestViaIvr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_Confirmation_SendRequestViaIvrAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_GetResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_Confirmation_GetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_SendViaSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_SecurityCode_SendViaSmsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_SendViaEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_SecurityCode_SendViaEmailAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_VerifyCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_SecurityCode_VerifyCodeAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_HasBeenVerified" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_SecurityCode_HasBeenVerifiedAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_MobileLocation_SendRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_MobileLocation_SendRequestAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_MobileLocation_GetResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureLink_MobileLocation_GetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImages">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/OcrPostImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OcrPostImagesAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImagesV2">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/OcrPostImagesV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OcrPostImagesV2AuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <soap:operation soapAction="http://api.giact.com/verificationservices/v5/OcrGetResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OcrGetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="InquiriesWS-5-8Soap12" type="tns:InquiriesWS-5-8Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMobileConsentText">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetMobileConsentText" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMobileConsentTextAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordNewMobileConsent">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/RecordNewMobileConsent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RecordNewMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/CheckForMobileConsent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CheckForMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/RevokeMobileConsent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RevokeMobileConsentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostInquiry">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/PostInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PostInquiryAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetByItemReferenceId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetByItemReferenceIdAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetTop10Descending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTop10DescendingAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SearchByDateTimeRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchByDateTimeRangeAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllInquiries">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SearchAllInquiries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchAllInquiriesAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SearchByWebsiteUsername" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchByWebsiteUsernameAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetActivityReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetActivityReportAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetErrorLogItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetErrorLogItemsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetErrorLogItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetErrorLogItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetFundsConfirmationResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFundsConfirmationResultsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetRtxFileResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRtxFileResultsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPrivateBadChecksItem">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/AddPrivateBadChecksItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddPrivateBadChecksItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetPrivateBadChecksItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPrivateBadChecksItemAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItems">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/GetPrivateBadChecksItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPrivateBadChecksItemsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SearchPrivateBadChecks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchPrivateBadChecksAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SetPrivateBadCheckStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetPrivateBadCheckStatusAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/UpdatePrivateBadCheckRejectReason" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdatePrivateBadCheckRejectReasonAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_SendRequestViaSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_Confirmation_SendRequestViaSmsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_SendRequestViaIvr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_Confirmation_SendRequestViaIvrAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_Confirmation_GetResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_Confirmation_GetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_SendViaSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_SecurityCode_SendViaSmsAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_SendViaEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_SecurityCode_SendViaEmailAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_VerifyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_SecurityCode_VerifyCodeAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_SecurityCode_HasBeenVerified" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_SecurityCode_HasBeenVerifiedAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_MobileLocation_SendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_MobileLocation_SendRequestAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/SecureLink_MobileLocation_GetResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureLink_MobileLocation_GetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImages">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/OcrPostImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OcrPostImagesAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrPostImagesV2">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/OcrPostImagesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OcrPostImagesV2AuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <soap12:operation soapAction="http://api.giact.com/verificationservices/v5/OcrGetResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OcrGetResultAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="InquiriesWS-5-8HttpGet" type="tns:InquiriesWS-5-8HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetMobileConsentText">
+      <http:operation location="/GetMobileConsentText" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <http:operation location="/CheckForMobileConsent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <http:operation location="/RevokeMobileConsent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <http:operation location="/GetByItemReferenceId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <http:operation location="/GetTop10Descending" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <http:operation location="/SearchByDateTimeRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <http:operation location="/SearchByWebsiteUsername" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <http:operation location="/GetActivityReport" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <http:operation location="/GetErrorLogItems" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <http:operation location="/GetErrorLogItem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <http:operation location="/GetFundsConfirmationResults" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <http:operation location="/GetRtxFileResults" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <http:operation location="/GetPrivateBadChecksItem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <http:operation location="/SearchPrivateBadChecks" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <http:operation location="/SetPrivateBadCheckStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <http:operation location="/UpdatePrivateBadCheckRejectReason" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <http:operation location="/SecureLink_Confirmation_SendRequestViaSms" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <http:operation location="/SecureLink_Confirmation_SendRequestViaIvr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <http:operation location="/SecureLink_Confirmation_GetResult" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <http:operation location="/SecureLink_SecurityCode_SendViaSms" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <http:operation location="/SecureLink_SecurityCode_SendViaEmail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <http:operation location="/SecureLink_SecurityCode_VerifyCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <http:operation location="/SecureLink_SecurityCode_HasBeenVerified" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <http:operation location="/SecureLink_MobileLocation_SendRequest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <http:operation location="/SecureLink_MobileLocation_GetResult" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <http:operation location="/OcrGetResult" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="InquiriesWS-5-8HttpPost" type="tns:InquiriesWS-5-8HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetMobileConsentText">
+      <http:operation location="/GetMobileConsentText" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckForMobileConsent">
+      <http:operation location="/CheckForMobileConsent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevokeMobileConsent">
+      <http:operation location="/RevokeMobileConsent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByItemReferenceId">
+      <http:operation location="/GetByItemReferenceId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTop10Descending">
+      <http:operation location="/GetTop10Descending" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByDateTimeRange">
+      <http:operation location="/SearchByDateTimeRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByWebsiteUsername">
+      <http:operation location="/SearchByWebsiteUsername" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityReport">
+      <http:operation location="/GetActivityReport" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItems">
+      <http:operation location="/GetErrorLogItems" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorLogItem">
+      <http:operation location="/GetErrorLogItem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFundsConfirmationResults">
+      <http:operation location="/GetFundsConfirmationResults" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRtxFileResults">
+      <http:operation location="/GetRtxFileResults" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivateBadChecksItem">
+      <http:operation location="/GetPrivateBadChecksItem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPrivateBadChecks">
+      <http:operation location="/SearchPrivateBadChecks" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrivateBadCheckStatus">
+      <http:operation location="/SetPrivateBadCheckStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePrivateBadCheckRejectReason">
+      <http:operation location="/UpdatePrivateBadCheckRejectReason" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaSms">
+      <http:operation location="/SecureLink_Confirmation_SendRequestViaSms" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_SendRequestViaIvr">
+      <http:operation location="/SecureLink_Confirmation_SendRequestViaIvr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_Confirmation_GetResult">
+      <http:operation location="/SecureLink_Confirmation_GetResult" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaSms">
+      <http:operation location="/SecureLink_SecurityCode_SendViaSms" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_SendViaEmail">
+      <http:operation location="/SecureLink_SecurityCode_SendViaEmail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_VerifyCode">
+      <http:operation location="/SecureLink_SecurityCode_VerifyCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_SecurityCode_HasBeenVerified">
+      <http:operation location="/SecureLink_SecurityCode_HasBeenVerified" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_SendRequest">
+      <http:operation location="/SecureLink_MobileLocation_SendRequest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureLink_MobileLocation_GetResult">
+      <http:operation location="/SecureLink_MobileLocation_GetResult" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OcrGetResult">
+      <http:operation location="/OcrGetResult" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InquiriesWS-5-8">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;img src="../Images/giact_searchresult_logo.jpg" alt="GIACT Systems logo"/&gt;&lt;br/&gt;&lt;h2&gt;&lt;br/&gt;InquiriesWS-5-8 is the public web service for integration with the GIACT Verification Services module's Inquiries resource.&lt;br/&gt;&lt;h2/&gt;&lt;br/&gt;&lt;h3&gt;</wsdl:documentation>
+    <wsdl:port name="InquiriesWS-5-8Soap" binding="tns:InquiriesWS-5-8Soap">
+      <soap:address location="https://api.giact.com/verificationservices/v5/InquiriesWS-5-8.asmx" />
+    </wsdl:port>
+    <wsdl:port name="InquiriesWS-5-8Soap12" binding="tns:InquiriesWS-5-8Soap12">
+      <soap12:address location="https://api.giact.com/verificationservices/v5/InquiriesWS-5-8.asmx" />
+    </wsdl:port>
+    <wsdl:port name="InquiriesWS-5-8HttpGet" binding="tns:InquiriesWS-5-8HttpGet">
+      <http:address location="https://api.giact.com/verificationservices/v5/InquiriesWS-5-8.asmx" />
+    </wsdl:port>
+    <wsdl:port name="InquiriesWS-5-8HttpPost" binding="tns:InquiriesWS-5-8HttpPost">
+      <http:address location="https://api.giact.com/verificationservices/v5/InquiriesWS-5-8.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
